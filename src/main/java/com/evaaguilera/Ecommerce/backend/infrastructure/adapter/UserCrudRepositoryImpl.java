@@ -23,7 +23,9 @@ private final UserMapper userMapper;
 
     @Override
     public User findByEmail(String email) {
-        return null;
+        return userMapper.toUser(iUserCrudRepository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("User with email:" +email+ " not found")
+        ));
     }
 
     @Override

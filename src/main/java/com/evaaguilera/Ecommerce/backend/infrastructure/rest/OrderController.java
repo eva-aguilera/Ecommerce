@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/orders")
+@RequestMapping("/api/v1/orders")
+@CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 public class OrderController {
     private final OrderService orderService;
@@ -39,7 +40,7 @@ public class OrderController {
 public ResponseEntity<Order> findById(@PathVariable("variable")Integer id){
     return ResponseEntity.ok(orderService.findById(id));
     }
-    @GetMapping("/by-user/{id}")
+    @GetMapping("/ ")
     public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable("id") Integer userId){
         return ResponseEntity.ok(orderService.findByUserId(userId));
     }

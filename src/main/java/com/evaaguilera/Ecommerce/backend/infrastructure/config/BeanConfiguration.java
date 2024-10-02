@@ -1,9 +1,6 @@
 package com.evaaguilera.Ecommerce.backend.infrastructure.config;
 
-import com.evaaguilera.Ecommerce.backend.aplication.CategoryService;
-import com.evaaguilera.Ecommerce.backend.aplication.OrderService;
-import com.evaaguilera.Ecommerce.backend.aplication.ProductService;
-import com.evaaguilera.Ecommerce.backend.aplication.UserService;
+import com.evaaguilera.Ecommerce.backend.aplication.*;
 import com.evaaguilera.Ecommerce.backend.domain.port.ICategoryRepository;
 import com.evaaguilera.Ecommerce.backend.domain.port.IOrderRepository;
 import com.evaaguilera.Ecommerce.backend.domain.port.IProductRepository;
@@ -14,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfiguration {
+    private IProductRepository iProductRepository;
+    private UploadFile uploadFile;
+
     @Bean
     public UserService userService(IUserRepository iUserRepository){
         return new UserService(iUserRepository);
@@ -25,12 +25,20 @@ public class BeanConfiguration {
     }
 
     @Bean
-public ProductService productService(IProductRepository iProductRepository){
-        return new ProductService(iProductRepository);
+public ProductService productService(IProductRepository iProductRepository, UploadFile uploadFile){
+        return new ProductService(iProductRepository,uploadFile);
     }
     @Bean
     public OrderService orderService(IOrderRepository iOrderRepository){
         return new OrderService(iOrderRepository);
     }
 
+    @Bean
+    public  UploadFile uploadFile(){
+        return new UploadFile();
+    }
+    @Bean
+    public RegistrationService registrationService(IUserRepository iUserRepository){
+        return new RegistrationService(iUserRepository);
+    }
 }
